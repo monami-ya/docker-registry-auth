@@ -1,24 +1,26 @@
+dockerauth-config:
+  build: .
+  restart: always
 dockerauth:
-  image: cesanta/docker_auth
+  image: monami0ya/docker_auth
   ports:
     - "5001:5001"
-  volumes:
-    - ./config:/config:ro
-    - ./logs:/logs
-    - ./ssl:/ssl
+  volumes_from:
+    - dockerauth-config
   command: /config/auth_config.yml
   restart: always
-
 registry:
   image: registry:latest
   ports:
     - "5000:5000"
-  volumes:
-    - ./ssl:/ssl
-    - ./registry:/var/lib/registry
+  volumes_from:
+    - dockerauth-config
   restart: always
   environment:
-    - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry
+    - REGISTRY_STORAGE=azure
+    - REGISTRY_STORAGE_AZURE_ACCOUNTNAME="<<EDITME>>"
+    - REGISTRY_STORAGE_AZURE_ACCOUNTKEY="<<EDITME>>"
+    - REGISTRY_STORAGE_AZURE_CONTAINER="registry"
     - REGISTRY_AUTH=token
     - REGISTRY_AUTH_TOKEN_REALM=https://localhost:5001/auth
     - REGISTRY_AUTH_TOKEN_SERVICE="Docker registry"
