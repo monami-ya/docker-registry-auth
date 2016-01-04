@@ -18,5 +18,4 @@ VOLUME /ssl
 VOLUME /config
 ADD config/auth_config.yml /config/
 
-ENTRYPOINT [ "/sbin/my_init" ]    
-
+ENTRYPOINT [ "/sbin/my_init" ]
