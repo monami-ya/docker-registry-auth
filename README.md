@@ -1,16 +1,21 @@
 # Docker private registry
-## setup
+
+## After set up below
 
 ```
-$ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout server.key -out server.pem
-$ mkdir ssl
-$ mv server* ssl
+$ docker-compose up
 ```
 
 ## configuration
 
-Configuration file is `config/auth_config.yml`.
-See the example config files in [cesanta/docker_auth](https://github.com/cesanta/docker_auth#installation-and-examples)
+### config/auth_config.yml
+
+As you like.
+
+### docker-compose.yml
+
+It is set for Azure Blob. Modify environment valiables as you like.
+
 
 ## enable insecure-registry in client
 
